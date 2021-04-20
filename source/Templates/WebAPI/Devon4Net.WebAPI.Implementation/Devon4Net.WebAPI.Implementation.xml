@@ -465,6 +465,47 @@
             <param name="bookGenere"></param>
             <returns></returns>
         </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Controller.CitiesClientController.GetAllCities">
+            <summary>
+            Gets all cities
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Controller.CitiesClientController.GetInformationFromOneCity(System.String)">
+            <summary>
+            Get all information related to one city
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Controller.CitiesClientController.CreateNewCity(Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Dto.CitiesClientDto)">
+            <summary>
+            Create new city
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController">
+            <summary>
+            CitiesServer controller
+            </summary>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController.GetAllCities">
+            <summary>
+            Gets all cities
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController.GetInformationFromOneCity(System.String)">
+            <summary>
+            Get all information related to one city
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController.CreateNewCity(Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Dto.CitiesServerDto)">
+            <summary>
+            Create new city
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Devon4Net.WebAPI.Implementation.Business.CyberArkManagement.CyberArkController.CreateUserGroup(Devon4Net.Infrastructure.CyberArk.Dto.Group.CreateGroupRequestDto,System.String)">
             <summary>
             This method is only available in version 11+

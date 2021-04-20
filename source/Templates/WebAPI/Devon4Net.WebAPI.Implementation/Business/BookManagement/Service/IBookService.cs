@@ -14,7 +14,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.BookManagement.Service
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        Task<IEnumerable<BookDto>> GetAllBooks(/*Expression<Func<Book, bool>> predicate = null*/);
+        Task<IEnumerable<BookDto>> GetAllBooks();
 
         /// <summary>
         /// GetBookByTitle

@@ -130,9 +130,11 @@ namespace Devon4Net.WebAPI.Implementation.Business.AuthorManagement.Service
             // TODO: Put the correct call
             string mediaType = MediaType.ApplicationJson;
             string endPoint = "Books"; 
-            var httpResponse = await _httpClientHandler.Send(System.Net.Http.HttpMethod.Get, endPoint,
-                "/books", null, mediaType, true, false, null);
-            var listOfBooks = GetObjectFromHttpResponse<List<BookDto>>(in httpResponse);
+            //var httpResponse = await _httpClientHandler.Send(System.Net.Http.HttpMethod.Get, endPoint,
+            var listOfBooks = await _httpClientHandler.Send<List<BookDto>>(System.Net.Http.HttpMethod.Get, endPoint,
+                "/books", null, mediaType, null, true, false);
+            //var listOfBooks = GetObjectFromHttpResponse<List<BookDto>>(in httpResponse);
+
 
             string title = "";
             string genere = "";

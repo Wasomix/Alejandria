@@ -103,7 +103,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.AuthorManagement.Controller
         [HttpPost]
         [Route("/publish")]
         //[Authorize(AuthenticationSchemes = AuthConst.AuthenticationScheme, Roles = $"{AuthConst.Author}, {AuthConst.Librarian}")]
-        [Authorize(AuthenticationSchemes = AuthConst.AuthenticationScheme, Roles = "Author, Librarian")]
+        //[Authorize(AuthenticationSchemes = AuthConst.AuthenticationScheme, Roles = "Author, Librarian")]
         [ProducesResponseType(typeof(AuthorBookDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
