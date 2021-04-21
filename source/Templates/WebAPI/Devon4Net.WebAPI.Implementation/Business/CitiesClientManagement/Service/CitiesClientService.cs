@@ -35,19 +35,30 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Servic
             return CitiesClientConverter.FromListOfCitiesServerToClient(listOfCities);
         }
 
-        // TODO: Finish this one
-        public Task<CitiesClientDto> GetInformationFromOneCity(string city)
+        public async Task<CitiesClientDto> GetInformationFromOneCity(string cityToFind)
         {
-            CitiesClientDto mockData = new CitiesClientDto { City = city, Country = "Germany" };
+            var cityInfo = await _httpClientHandler.Send<CitiesClientDto>(
+            System.Net.Http.HttpMethod.Get, _endPoint, $"/server_get_city_by_id?city={cityToFind}", null,
+            _mediaType, null, true, true).ConfigureAwait(false);
 
-            return Task.FromResult(mockData);
+            return cityInfo;
         }
 
         public async Task<CitiesClientDto> CreateNewCity(CitiesClientDto newItem)
         {
             var city = await _httpClientHandler.Send<CitiesClientDto>(
             System.Net.Http.HttpMethod.Post, _endPoint, "/server_add_city", newItem,
-            _mediaType, null, true, false).ConfigureAwait(false);
+            _mediaType, null, true, true).ConfigureAwait(false);
+
+            return city;
+        }
+
+        public async Task<CitiesClientDto> DeleteCity(string cityToDelete)
+        {
+            var city = await _httpClientHandler.Send<CitiesClientDto>(
+                System.Net.Http.HttpMethod.Delete, _endPoint,
+                $"/server_delete?cityToDelete={cityToDelete}", null,
+                _mediaType, null, true, true).ConfigureAwait(false);
 
             return city;
         }

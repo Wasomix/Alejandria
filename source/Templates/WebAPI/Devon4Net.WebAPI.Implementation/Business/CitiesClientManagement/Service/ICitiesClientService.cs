@@ -9,5 +9,6 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Servic
         public Task<IEnumerable<CitiesClientDto>> GetAllCities();
         public Task<CitiesClientDto> GetInformationFromOneCity(string city);
         public Task<CitiesClientDto> CreateNewCity(CitiesClientDto newCity);
+        public Task<CitiesClientDto> DeleteCity(string cityToDelete);
     }
 }

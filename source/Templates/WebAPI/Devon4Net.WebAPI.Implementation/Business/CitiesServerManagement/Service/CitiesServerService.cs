@@ -1,47 +1,53 @@
-﻿using Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Dto;
+﻿using Devon4Net.Domain.UnitOfWork.Service;
+using Devon4Net.Domain.UnitOfWork.UnitOfWork;
+using Devon4Net.Infrastructure.Log;
+using Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Converter;
+using Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Dto;
+using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Service
 {
-    public class CitiesServerService : /*Service<>,*/ ICitiesServerService
+    public class CitiesServerService : Service<AlejandriaContext>, ICitiesServerService
     {
-        //private ICitiesServerRepository _citiesServerRepository;
+        private ICitiesServerRepository _citiesServerRepository;
 
-        public CitiesServerService(/*ICitiesServerRepository citiesServerRepository*/)
+        public CitiesServerService(IUnitOfWork<AlejandriaContext> uow) : base (uow)
         {
-            //_citiesServerRepository = citiesServerRepository;
+            _citiesServerRepository = uow.Repository<ICitiesServerRepository>();
         }
 
-        public Task<IEnumerable<CitiesServerDto>> GetAllCities()
+        public async Task<IEnumerable<CitiesServerDto>> GetAllCities()
         {
-            IEnumerable<CitiesServerDto> result = new List<CitiesServerDto>()
-            {
-                new CitiesServerDto {City = "Madrid", Country = "Spain" },
-                new CitiesServerDto {City = "Castellon", Country = "Spain" },
-                new CitiesServerDto {City = "Berlin", Country = "Germany" }
-            };
+            Devon4NetLogger.Debug($"GetAllCities method from service CitiesServerService");
+            var result = await _citiesServerRepository.GetAllCities().ConfigureAwait(false);
 
-            return Task.FromResult(result);
+            return CitiesServerConverter.FromListOfModelToDto(result);
         }
 
-        public Task<CitiesServerDto> GetInformationFromOneCity(string city)
+        public async Task<CitiesServerDto> GetInformationFromOneCity(string city)
         {
-            CitiesServerDto mockData = new CitiesServerDto { City = city, Country = "Germany" };
-            
-            return Task.FromResult(mockData);
+            var cityInformation = await _citiesServerRepository.GetInformationFromOneCity(city).ConfigureAwait(false);
+
+            return CitiesServerConverter.FromModelToDto(cityInformation);
         }
 
-        public Task<CitiesServerDto> CreateNewCity(CitiesServerDto newItem)
+        public async Task<CitiesServerDto> CreateNewCity(CitiesServerDto newItem)
         {
-            CitiesServerDto mockData = new CitiesServerDto
-            {
-                City = newItem.City,
-                Country = newItem.Country
-            };
+            Devon4NetLogger.Debug($"GetAllCities method from service CitiesServerService");
+            var result = await _citiesServerRepository.Create(newItem).ConfigureAwait(false);
 
-            return Task.FromResult(mockData);
+            return CitiesServerConverter.FromModelToDto(result);
+        }
+
+        public async Task<bool> DeleteCity(string city)
+        {
+            Devon4NetLogger.Debug($"DeleteCity method from service CitiesServerService");
+            var result = await _citiesServerRepository.DeleteCity(city).ConfigureAwait(false);
+
+            return result;
         }
     }
 }

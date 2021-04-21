@@ -20,6 +20,8 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
         public virtual DbSet<AuthorBook> AuthorBook { get; set; }
         public virtual DbSet<Book> Book { get; set; }
 
+        public virtual DbSet<CitiesCountry> CitiesCountry { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -29,6 +31,16 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            CreateAuthorModel(ref modelBuilder);
+            CreateAuthorBookModel(ref modelBuilder);
+            CreateBookModel(ref modelBuilder);
+            CreateCitiesCountryModel(ref modelBuilder);
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        private void CreateAuthorModel(ref ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Author>(entity =>
             {
@@ -48,7 +60,10 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .IsRequired()
                     .HasColumnType("character varying");
             });
+        }
 
+        private void CreateAuthorBookModel(ref ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<AuthorBook>(entity =>
             {
                 entity.ToTable("Author_Book");
@@ -78,7 +93,10 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .HasForeignKey(d => d.BookId)
                     .HasConstraintName("author_book_fk_1");
             });
+        }
 
+        private void CreateBookModel(ref ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.Property(e => e.Id)
@@ -96,8 +114,24 @@ namespace Devon4Net.WebAPI.Implementation.Domain.Database
                     .IsRequired()
                     .HasColumnType("character varying");
             });
+        }
 
-            OnModelCreatingPartial(modelBuilder);
+        private void CreateCitiesCountryModel(ref ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CitiesCountry>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.City)
+                            .HasColumnName("city")
+                            .HasMaxLength(255);
+
+                entity.Property(e => e.Country)
+                            .HasColumnName("country")
+                            .HasMaxLength(255);
+            });
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

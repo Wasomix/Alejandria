@@ -63,7 +63,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Contro
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("/client__add_city")]
+        [Route("/client_add_city")]
         //[Authorize(AuthenticationSchemes = AuthConst.AuthenticationScheme, Roles = AuthConst.Librarian)]
         [ProducesResponseType(typeof(CitiesClientDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,6 +75,23 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Contro
             Devon4NetLogger.Debug($"Executing {m.ReflectedType.Name}" +
                 " from controller {m.Name}");
             return Ok(await _citiesClientServiceHandler.CreateNewCity(newCity).ConfigureAwait(false));
+        }
+
+        /// <summary>
+        /// Deletes the Author provided the author's name
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("/client_delete")]
+        //[Authorize(AuthenticationSchemes = AuthConst.AuthenticationScheme, Roles = AuthConst.Librarian)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteCity(string cityToDelete)
+        {
+            Devon4NetLogger.Debug("Executing DeleteCity from controller CitiesClientController");
+            return Ok(await _citiesClientServiceHandler.DeleteCity(cityToDelete).ConfigureAwait(false));
         }
     }
 }

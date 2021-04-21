@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller
@@ -38,9 +37,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Contro
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetAllCities()
         {
-            MethodBase m = MethodBase.GetCurrentMethod();
-            Devon4NetLogger.Debug($"Executing {m.ReflectedType.Name}" +
-                " from controller {m.Name}");
+            Devon4NetLogger.Debug($"Executing GetAllCities method from controller CitiesServerController");
             return Ok(await _citiesServerServiceHandler.GetAllCities().ConfigureAwait(false));
         }
 
@@ -55,11 +52,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Contro
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetInformationFromOneCity(string city)
+        public async Task<ActionResult> GetInformationFromOneCity(/*[FromQuery]*/ string city)
         {
-            MethodBase m = MethodBase.GetCurrentMethod();
-            Devon4NetLogger.Debug($"Executing {m.ReflectedType.Name}" +
-                " from controller {m.Name}");
+            Devon4NetLogger.Debug($"Executing GetInformationFromOneCity method from controller CitiesServerController");
             return Ok(await _citiesServerServiceHandler.GetInformationFromOneCity(city).ConfigureAwait(false));
         }
 
@@ -76,10 +71,25 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Contro
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> CreateNewCity(CitiesServerDto newCity)
         {
-            MethodBase m = MethodBase.GetCurrentMethod();
-            Devon4NetLogger.Debug($"Executing {m.ReflectedType.Name}" +
-                " from controller {m.Name}");
+            Devon4NetLogger.Debug($"Executing CreateNewCity method from controller CitiesServerController");
             return Ok(await _citiesServerServiceHandler.CreateNewCity(newCity).ConfigureAwait(false));
+        }
+
+        /// <summary>
+        /// Deletes the Author provided the author's name
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("/server_delete")]
+        //[Authorize(AuthenticationSchemes = AuthConst.AuthenticationScheme, Roles = AuthConst.Librarian)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteCity(string cityToDelete)
+        {
+            Devon4NetLogger.Debug("Executing DeleteCity from controller CitiesServerController");
+            return Ok(await _citiesServerServiceHandler.DeleteCity(cityToDelete).ConfigureAwait(false));
         }
     }
 }

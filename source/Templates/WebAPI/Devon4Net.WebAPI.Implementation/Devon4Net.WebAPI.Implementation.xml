@@ -483,6 +483,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Controller.CitiesClientController.DeleteCity(System.String)">
+            <summary>
+            Deletes the Author provided the author's name
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController">
             <summary>
             CitiesServer controller
@@ -503,6 +509,12 @@
         <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController.CreateNewCity(Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Dto.CitiesServerDto)">
             <summary>
             Create new city
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Controller.CitiesServerController.DeleteCity(System.String)">
+            <summary>
+            Deletes the Author provided the author's name
             </summary>
             <returns></returns>
         </member>
