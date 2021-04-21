@@ -5,6 +5,7 @@ using Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Converter;
 using Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Dto;
 using Devon4Net.WebAPI.Implementation.Domain.Database;
 using Devon4Net.WebAPI.Implementation.Domain.RepositoryInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -45,9 +46,30 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Servic
         public async Task<bool> DeleteCity(string city)
         {
             Devon4NetLogger.Debug($"DeleteCity method from service CitiesServerService");
-            var result = await _citiesServerRepository.DeleteCity(city).ConfigureAwait(false);
 
-            return result;
+            bool isCityFound = await IsCityInDdbb(city).ConfigureAwait(false);
+            if(isCityFound)
+            {
+                return await _citiesServerRepository.DeleteCity(city).ConfigureAwait(false);
+            }
+            else
+            {
+                throw new ArgumentException($"The provided Id {city} does not exists");
+            }
         }
+
+        private async Task<bool> IsCityInDdbb(string city)
+        {
+            bool cityFound = true;
+            var citySearched = await _citiesServerRepository.GetFirstOrDefault(t => t.City == city).ConfigureAwait(false);
+
+            if (citySearched == null)
+            {
+                cityFound = false;
+            }
+
+            return cityFound;
+        }
+
     }
 }

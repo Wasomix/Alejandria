@@ -52,7 +52,7 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesServerManagement.Contro
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetInformationFromOneCity(/*[FromQuery]*/ string city)
+        public async Task<ActionResult> GetInformationFromOneCity([FromQuery] string city)
         {
             Devon4NetLogger.Debug($"Executing GetInformationFromOneCity method from controller CitiesServerController");
             return Ok(await _citiesServerServiceHandler.GetInformationFromOneCity(city).ConfigureAwait(false));

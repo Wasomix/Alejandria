@@ -51,7 +51,7 @@ namespace Devon4Net.WebAPI.Implementation.Data.Repositories
                 return deleted;
             }
 
-            throw new ApplicationException($"The Author entity {city} has not been deleted.");
+            throw new ApplicationException($"The City entity {city} has not been deleted.");
         }
     }
 }
