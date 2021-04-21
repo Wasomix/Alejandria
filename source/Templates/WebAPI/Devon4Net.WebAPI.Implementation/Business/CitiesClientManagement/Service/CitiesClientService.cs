@@ -53,9 +53,9 @@ namespace Devon4Net.WebAPI.Implementation.Business.CitiesClientManagement.Servic
             return city;
         }
 
-        public async Task<CitiesClientDto> DeleteCity(string cityToDelete)
+        public async Task<string> DeleteCity(string cityToDelete)
         {
-            var city = await _httpClientHandler.Send<CitiesClientDto>(
+            var city = await _httpClientHandler.Send<string>(
                 System.Net.Http.HttpMethod.Delete, _endPoint,
                 $"/server_delete?cityToDelete={cityToDelete}", null,
                 _mediaType, null, true, true).ConfigureAwait(false);
